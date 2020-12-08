@@ -22,17 +22,17 @@ app.get("/", function (req, res) {
 // your first API endpoint... 
 app.get("/api/timestamp/:date", function (req, res) {
   const {date} = req.params
-  let d
-  if (!date) {
-    d = new Date()
-  } else {
-    d = date.length === 13 ? new Date(+date) : new Date(date)
-  }
+  const d = date.length === 13 ? new Date(+date) : new Date(date)
   if (Number.isNaN(d.valueOf())) {
     res.json({error: "Invalid Date"});
   }
   res.json({unix: d.getTime(), utc: d.toUTCString()});
 });
+
+app.get("/api/timestamp", function (req, res) {
+  const d = new Date()
+  res.json({unix: d.getTime(), utc: d.toUTCString()})
+})
 
 
 
